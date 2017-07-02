@@ -1,1 +1,1 @@
-This is a Twitch TV App which is built with <3 from KinderPreet Singh for the freeCodeCamp project.
+This is a Twitch TV App which is built with <3 by KinderPreet Singh for the freeCodeCamp project.

@@ -1,17 +1,71 @@
+body{
+	background-color: #222922;
+	color: white;
+	background-image: url(rohit-choudhari-180738.jpg);
+	background-size: 100% 50%;
+}
+@media (max-width: 576px) {
+	body{
+		background-image: url(rohit-choudhari-180738.jpg);
+		background-size: 100% 10%;
+	}
+}
+/* col-sm */
+@media (min-width: 577px) and (max-width: 767px){
+	body{
+		background-size: 100% 30%;
+	}
+}
+/* col-md */
+@media (min-width: 768px) and (max-width: 991px){
+	body{
+		background-size: 100% 40%;
+	}
+}
+/* col-lg */
+@media (min-width: 992px) and (max-width: 1199px){
+	body{
+		background-size: 100% 50%;
+	}
+}
+/* col-xl */
+@media  (min-width: 1200px){
+
+}
 li{
-  /* background-color: orange; */
   list-style: none;
-  width     : 80%;
-  margin    : 0 auto;
-  /* background: url('https://static-cdn.jtvnw.net/jtv_user_pictures/ogamingsc2-profile_banner-d418aed2c0ef7d35-480.jpeg'); */
+  width     : 70%;
+  margin    : 2rem auto;
+}
+ul{
+	opacity: .1;
+}
+a:hover{
+	text-decoration: none;
+}
+.elementsContainer{
+	padding: 1rem;
+	border-radius: .3rem;
+	color: white;
+	transition: color .2s ease-in-out, background-color .2s ease-in-out;
+}
+.elementsContainer:hover{
+	color: black;
+	background-color: white;
 }
 img{
   width     : 80px;
   height    : 80px;
+  border: 1px solid blue;
+ -webkit-box-shadow: 0px 0px 10px 1px rgba(2,161,209,1);
+ -moz-box-shadow: 0px 0px 10px 1px rgba(2,161,209,1);
+ box-shadow: 0px 0px 10px 1px rgba(2,161,209,1);
+ border-radius: 10rem;
 }
 .borderRed{
   border    : 2px solid red;
+  color: red;
 }
 .borderGreen{
-  border    : 2px solid green;
+  border    : 2px solid #00ff00;
 }

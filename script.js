@@ -1,4 +1,4 @@
-var channels  = ['ESL_SC2','OgamingSC2','cretetion','freecodecamp','storbeck','habathcx','RobotCaleb','noobs2ninjas'];
+var channels  = ['ESL_SC2','OgamingSC2','gamesdonequick','cretetion','ramzesdoto','thijshs','yetz','w33haa','gosu','p4wnyhof','iwilldominate','wraxu','freecodecamp','grimmmz','riotgamesjp','storbeck','habathcx','RobotCaleb','noobs2ninjas'];
 var baseUrl   = 'https://wind-bow.glitch.me/twitch-api/';
 var urlStream = 'streams/';
 var html      = [];
@@ -25,9 +25,9 @@ function fetchData(data){
 	pGame        = '<p>' + '<b>Game:</b> ' + '<i>' + game + '</i>' + '</p>';
 	hStreamType  = '<h4>' + streamType + '</h4>';
 	hDisplayName = '<h4>' +  displayName + '</h4>';
-	img          = '<img src="' + logo + '" >';
+	img          = '<img  src="' + logo + '" >';
 	pViewers     = '<p>' + '<b>Viewers:</b> ' + viewers + '</p>'
-	htmlData     = '<li class="text-center"> <div class="container-fluid"> <a href="' + profileUrl + '" target="_blank"> <div class="row align-items-center borderGreen"> <div class="col-lg-2">' + img + '</div> <div class="col-lg-4"> ' +  hDisplayName + ' </div> <div class="col-lg-3"> ' +  hStreamType + pGame + '</div><div class="col-lg-3">' + pFollowers + pViewers +'</div> </div> </a></div> </li>' ;	
+	htmlData     = '<li class="text-center"> <div class="container-fluid"> <a href="' + profileUrl + '" target="_blank"> <div class="row align-items-center borderGreen elementsContainer"> <div class="col-lg-2">' + img + '</div> <div class="col-lg-4"> ' +  hDisplayName + ' </div> <div class="col-lg-3"> ' +  hStreamType + pGame + '</div><div class="col-lg-3">' + pFollowers + pViewers +'</div> </div> </a></div> </li>' ;	
 	
 	return htmlData;
 }
@@ -43,11 +43,16 @@ function fetchOfflineData(data,channelNames){
 	pGame        = '<p>' + game + '</p>';
 	hStreamType  = '<h4>' + streamType + '</h4>';
 	hDisplayName = '<h4>' +  displayName + '</h4>';
-	img          = '<img src="' + logo + '" >';
+	img          = '<img  src="' + logo + '" >';
 	pViewers     = 'Can\'t show viewers'
-	htmlData     = '<li class="text-center"> <div class="container-fluid"> <a href="' + profileUrl + '" target="_blank"> <div class="row align-items-center borderRed"> <div class="col-lg-2">' + img + '</div> <div class="col-lg-4"> ' +  hDisplayName + ' </div> <div class="col-lg-6"><h2>' + streamType + '</h2></div> </div> </a></div> </li>' ;	
+	htmlData     = '<li class="text-center"> <div class="container-fluid"> <a href="' + profileUrl + '" target="_blank"> <div class="row align-items-center borderRed elementsContainer"> <div class="col-lg-2">' + img + '</div> <div class="col-lg-4"> ' +  hDisplayName + ' </div> <div class="col-lg-6"><h2>' + streamType + '</h2></div> </div> </a></div> </li>' ;	
 	
 	return htmlData;
+}
+function fadeIn(toAnimate){
+	$(toAnimate).animate({
+					opacity: 1
+				},800);
 }
 function loadData(){
 	$.each(channels,function(index,channelNames){
@@ -63,6 +68,7 @@ function loadData(){
 					li   = fetchData(data);
 					html.push(li);
 					ul.append(html);
+					fadeIn(ul);
 					html =[];
 				}else {
 					lii = fetchOfflineData(data,channelNames);

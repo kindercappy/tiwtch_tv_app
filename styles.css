@@ -2,7 +2,7 @@ body{
 	background-color: #222922;
 	color: white;
 	background-image: url(rohit-choudhari-180738.jpg);
-	background-size: 100% 50%;
+	background-size: 50% 50%;
 }
 @media (max-width: 576px) {
 	body{
@@ -25,12 +25,8 @@ body{
 /* col-lg */
 @media (min-width: 992px) and (max-width: 1199px){
 	body{
-		background-size: 100% 50%;
+		background-size: 50% 50%;
 	}
-}
-/* col-xl */
-@media  (min-width: 1200px){
-
 }
 li{
   list-style: none;

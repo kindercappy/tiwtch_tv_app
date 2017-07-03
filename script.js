@@ -1,12 +1,13 @@
-var channels  = ['ESL_SC2','OgamingSC2','gamesdonequick','cretetion','ramzesdoto','thijshs','yetz','w33haa','gosu','p4wnyhof','iwilldominate','wraxu','freecodecamp','grimmmz','riotgamesjp','storbeck','habathcx','RobotCaleb','noobs2ninjas'];
+var channels  = ['ESL_SC2','OgamingSC2','gamesdonequick','comster404 ','cretetion','ramzesdoto','thijshs','yetz','w33haa','gosu','p4wnyhof','iwilldominate','wraxu','freecodecamp','grimmmz','riotgamesjp','habathcx','RobotCaleb','noobs2ninjas','brunofin','imaqtpie'];
 var baseUrl   = 'https://wind-bow.glitch.me/twitch-api/';
 var urlStream = 'streams/';
+var urlChannels = 'channels/'
 var html      = [];
 var ul        = $('ul');
 function makeUrl(type,name){
 	return baseUrl + type + name;
 }
-function fetchData(data){
+function fetchdata(dataStream){
 	var streamType;
 	var displayName;
 	var game;
@@ -14,12 +15,12 @@ function fetchData(data){
 	var logo; 
 	var profileUrl;
 	streamType  = "Online";
-	displayName = data.stream.channel.display_name;
-	game        = data.stream.game;
-	followers   = data.stream.channel.followers;
-	logo        = data.stream.channel.logo;
-	profileUrl  = data.stream.channel.url;
-	viewers     = data.stream.viewers;
+	displayName = dataStream.stream.channel.display_name;
+	game        = dataStream.stream.game;
+	followers   = dataStream.stream.channel.followers;
+	logo        = dataStream.stream.channel.logo;
+	profileUrl  = dataStream.stream.channel.url;
+	viewers     = dataStream.stream.viewers;
 
 	pFollowers   = '<p>'  + '<b>Followers</b>: ' + '<i>' + followers + '</i>' + '</p>';
 	pGame        = '<p>' + '<b>Game:</b> ' + '<i>' + game + '</i>' + '</p>';
@@ -27,58 +28,72 @@ function fetchData(data){
 	hDisplayName = '<h4>' +  displayName + '</h4>';
 	img          = '<img  src="' + logo + '" >';
 	pViewers     = '<p>' + '<b>Viewers:</b> ' + viewers + '</p>'
-	htmlData     = '<li class="text-center"> <div class="container-fluid"> <a href="' + profileUrl + '" target="_blank"> <div class="row align-items-center borderGreen elementsContainer"> <div class="col-lg-2">' + img + '</div> <div class="col-lg-4"> ' +  hDisplayName + ' </div> <div class="col-lg-3"> ' +  hStreamType + pGame + '</div><div class="col-lg-3">' + pFollowers + pViewers +'</div> </div> </a></div> </li>' ;	
+	htmldataStream     = '<li class="text-center"> <div class="container-fluid"> <a href="' + profileUrl + '" target="_blank"> <div class="row align-items-center borderGreen elementsContainer"> <div class="col-lg-2">' + img + '</div> <div class="col-lg-4"> ' +  hDisplayName + ' </div> <div class="col-lg-3"> ' +  hStreamType + pGame + '</div><div class="col-lg-3">' + pFollowers + pViewers +'</div> </div> </a></div> </li>' ;	
 	
-	return htmlData;
+	return htmldataStream;
 }
-function fetchOfflineData(data,channelNames){
+function fetchOfflineData(dataChannel){
+	console.log(dataChannel);
+	channelName  = dataChannel.display_name;
+	console.log(channelName);
 	streamType   = "Offline";
-	displayName  = channelNames;
+	profileUrl   = 'https://www.twitch.tv/'+channelName;
+	logo = dataChannel.logo;
+	if(channelName === undefined){
+		channelName = "Channel does not exist";
+		streamType="";
+		profileUrl   = '#';
+		logo         = "https://dummyimage.com/50x50/ecf0e7/5c5457.jpg&text=0x3F";
+	}
 	game         = "No game";
 	followers    = "Can't display followers";
-	logo         = "https://dummyimage.com/50x50/ecf0e7/5c5457.jpg&text=0x3F";
-	profileUrl   = 'https://www.twitch.tv/' + channelNames;
 
 	pFollowers   = '<p>'  +  followers + '</p>';
 	pGame        = '<p>' + game + '</p>';
 	hStreamType  = '<h4>' + streamType + '</h4>';
-	hDisplayName = '<h4>' +  displayName + '</h4>';
+	hDisplayName = '<h4>' +  channelName + '</h4>';
 	img          = '<img  src="' + logo + '" >';
 	pViewers     = 'Can\'t show viewers'
-	htmlData     = '<li class="text-center"> <div class="container-fluid"> <a href="' + profileUrl + '" target="_blank"> <div class="row align-items-center borderRed elementsContainer"> <div class="col-lg-2">' + img + '</div> <div class="col-lg-4"> ' +  hDisplayName + ' </div> <div class="col-lg-6"><h2>' + streamType + '</h2></div> </div> </a></div> </li>' ;	
+	htmldataStream     = '<li class="text-center"> <div class="container-fluid"> <a href="' + profileUrl + '" target="_blank"> <div class="row align-items-center borderRed elementsContainer"><div class="col-lg-2">' + img + '</div><div class="col-lg-4"> ' +  hDisplayName + ' </div> <div class="col-lg-6"><h2>' + streamType + '</h2></div> </div> </a></div> </li>' ;	
 	
-	return htmlData;
+	return htmldataStream;
 }
 function fadeIn(toAnimate){
 	$(toAnimate).animate({
 					opacity: 1
 				},800);
 }
-function loadData(){
+function loaddataStream(){
 	$.each(channels,function(index,channelNames){
 		var stream;
 
 		$.ajax({
 			url: makeUrl(urlStream,channelNames),
 			dataType: 'jsonp',
-			success:function(data){
-				console.log(data);
-				stream = data.stream;
+			success:function(dataStream){
+				// console.log(dataStream);
+				stream = dataStream.stream;
 				if (stream !== null) {
-					li   = fetchData(data);
+					li   = fetchdata(dataStream);
 					html.push(li);
 					ul.append(html);
 					fadeIn(ul);
 					html =[];
-				}else {
-					lii = fetchOfflineData(data,channelNames);
-					html.push(lii);
+				}
+			}
+		});
+		$.ajax({
+			url: makeUrl(urlChannels,channelNames),
+			dataType: 'jsonp',
+			success: function(dataChannel){
+				if (stream === null) {
+					channelDisplay = fetchOfflineData(dataChannel);
+					ul.append(channelDisplay);
 				}
 			}
 		});
 	});
 }
 $(document).ready(function(){
-	//alert("Voila!");
-	loadData();
+	loaddataStream();
 });
